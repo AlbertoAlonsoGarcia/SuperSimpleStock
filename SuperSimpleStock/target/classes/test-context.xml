@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	
+	<import resource="beans-context.xml"></import>
+	
+	<bean id="trades" class="java.util.ArrayList" scope="prototype">
+		
+		<constructor-arg>
+			<list>
+				<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksTEA"></property>
+					<property name="tradeType" value="SELL"></property>
+					<property name="sharesNumber" value="25"></property>
+					<property name="price" value="13.23"></property>
+				</bean>
+								<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksPOP"></property>
+					<property name="tradeType" value="SELL"></property>
+					<property name="sharesNumber" value="140"></property>
+					<property name="price" value="2.23"></property>
+				</bean>
+								<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksALE"></property>
+					<property name="tradeType" value="SELL"></property>
+					<property name="sharesNumber" value="100"></property>
+					<property name="price" value="1.65"></property>
+				</bean>
+								<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksGIN"></property>
+					<property name="tradeType" value="SELL"></property>
+					<property name="sharesNumber" value="65"></property>
+					<property name="price" value="21.54"></property>
+				</bean>
+								<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksJOE"></property>
+					<property name="tradeType" value="SELL"></property>
+					<property name="sharesNumber" value="90"></property>
+					<property name="price" value="7.23"></property>
+				</bean>
+								<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksTEA"></property>
+					<property name="tradeType" value="BUY"></property>
+					<property name="sharesNumber" value="40"></property>
+					<property name="price" value="13.01"></property>
+				</bean>
+				<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksPOP"></property>
+					<property name="tradeType" value="BUY"></property>
+					<property name="sharesNumber" value="120"></property>
+					<property name="price" value="2.67"></property>
+				</bean>
+				<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksALE"></property>
+					<property name="tradeType" value="BUY"></property>
+					<property name="sharesNumber" value="90"></property>
+					<property name="price" value="1.30"></property>
+				</bean>
+				<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksGIN"></property>
+					<property name="tradeType" value="BUY"></property>
+					<property name="sharesNumber" value="45"></property>
+					<property name="price" value="22.23"></property>
+				</bean>
+				<bean class="com.aag.sss.model.Trade">
+					<property name="timestamp">
+						<bean factory-bean="datesFactory" factory-method="getBefore">
+							<constructor-arg value="12"></constructor-arg>
+						</bean>
+					</property>
+					<property name="stock" ref="stocksJOE"></property>
+					<property name="tradeType" value="BUY"></property>
+					<property name="sharesNumber" value="110"></property>
+					<property name="price" value="6.12"></property>
+				</bean>
+
+			</list>
+		</constructor-arg>
+		<!--  </property>-->
+	</bean>
+	
+	<bean id="stocksService" class="com.aag.sss.services.impl.StocksServiceImpl" scope="singleton">
+		<property name="stocksEntityManager" ref="stocksEntityManager">
+		</property>
+		<property name="tradesEntityManager" ref="tradesEntityManager">
+		</property>
+		
+	</bean>
+	
+	
+</beans>
