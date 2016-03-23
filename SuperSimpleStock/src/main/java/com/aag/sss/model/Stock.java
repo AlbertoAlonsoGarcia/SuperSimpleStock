@@ -157,7 +157,7 @@ public class Stock {
 	 * @return the tickerPrice
 	 */
 	public double getTickerPrice() {
-		logger.info(" getTickerPrice returning "+tickerPrice);
+
 		return tickerPrice;
 	}
 
@@ -178,16 +178,16 @@ public class Stock {
 	public double getDividendYield() throws NoDataException {
 		double dividendYield = -1.0;
 		
-		logger.info("Calculating Dividend Yield for"+this.getSymbol());
+
 		if(tickerPrice >= 0.0)
 		{
-			logger.info("Calculating Dividend Yield 1 for"+this.getSymbol());
+
 			if( stockType==StockType.PREFERRED)
 			{
-				logger.info("Calculating Dividend Yield 1a for"+this.getSymbol());
+
 				dividendYield = (fixedDividend * parValue ) / tickerPrice;				
 			}else{
-				logger.info("Calculating Dividend Yield 1b for"+this.getSymbol());
+
 				dividendYield = lastDividend / tickerPrice;
 			}
 		}else
@@ -202,8 +202,7 @@ public class Stock {
 	 */
 	public double getPeRatio() throws NoDataException {
 		double peRatio = -1.0;
-		logger.info("Calculating Ratio for"+this.getSymbol());
-		
+
 		if(tickerPrice > 0.0){
 
 			peRatio = tickerPrice / this.getDividendYield();	
