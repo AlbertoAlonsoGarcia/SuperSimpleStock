@@ -236,8 +236,7 @@ public class StocksServicesTest {
 			logger.info("GBCE All Share Index: "+GBCEAllShareIndex);
 			Assert.assertTrue(GBCEAllShareIndex > 0.0);
 			
-		}catch(NoDataException exception){
-			logger.error(exception);
+		}catch(NoDataException exception){			
 			Assert.assertTrue(true);
 		}catch(Exception exception){
 			logger.error(exception);
