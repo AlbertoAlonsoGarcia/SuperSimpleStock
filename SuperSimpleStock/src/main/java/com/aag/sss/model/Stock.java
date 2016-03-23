@@ -5,6 +5,8 @@ package com.aag.sss.model;
 
 import org.apache.log4j.Logger;
 
+import com.aag.sss.exceptions.NoDataException;
+
 
 
 /**
@@ -173,7 +175,7 @@ public class Stock {
 	
 	
 	
-	public double getDividendYield() {
+	public double getDividendYield() throws NoDataException {
 		double dividendYield = -1.0;
 		
 		logger.info("Calculating Dividend Yield for"+this.getSymbol());
@@ -188,15 +190,17 @@ public class Stock {
 				logger.info("Calculating Dividend Yield 1b for"+this.getSymbol());
 				dividendYield = lastDividend / tickerPrice;
 			}
-		}
+		}else
+			throw new NoDataException("No data for calculating Dividend Yield for the stock symbol: "+symbol+".");
 		return dividendYield;
 	}
 	
 	/**
 	 * 
 	 * @return
+	 * @throws NoDataException 
 	 */
-	public double getPeRatio() {
+	public double getPeRatio() throws NoDataException {
 		double peRatio = -1.0;
 		logger.info("Calculating Ratio for"+this.getSymbol());
 		
