@@ -193,17 +193,16 @@ public class StocksServiceImpl implements StocksService {
 
 	public double calculateStockPrice(Stock stock, int minutesRange) {
 		double stockPrice = 0.0;
-		logger.info("calculateStockPrice(Stock,minutesRange)");
 
 		Collection<Trade> trades = tradesEntityManager.getTrades();
-		logger.info("tradesNumber: "+trades.size());
-		// Calculate the summation
+
+		// Calculate the addition
 		double shareQuantityAcum = 0.0;
 		double tradePriceAcum = 0.0;
 		for(Trade trade : trades){
-			// Calculate the summation of Trade Price x Quantity
+			// Calculate the addition of Trade Price x Quantity
 			tradePriceAcum += (trade.getPrice() * trade.getSharesNumber());
-			// Acumulate Quantity
+			// Acumulate quantity
 			shareQuantityAcum += trade.getSharesNumber();
 		}
 
@@ -211,7 +210,8 @@ public class StocksServiceImpl implements StocksService {
 		if(shareQuantityAcum > 0.0){
 			stockPrice = tradePriceAcum / shareQuantityAcum;	
 		}
-		logger.info("returning: "+stockPrice);
+
+
 
 		return stockPrice;
 	}
@@ -238,8 +238,10 @@ public class StocksServiceImpl implements StocksService {
 			}
 			// Calculates the GBCE All Share Index
 			allShareIndex = MathUtils.geometricMean(stockPricesArray);
-		}
-		return allShareIndex;
+			return allShareIndex;
+		}else
+			throw new NoDataException("There is no data to calculate GBCE All Share Index");
+
 	}
 
 }
