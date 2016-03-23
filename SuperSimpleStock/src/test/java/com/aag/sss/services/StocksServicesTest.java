@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.aag.sss.exceptions.NoDataException;
 import com.aag.sss.factories.SpringServiceFactory;
 import com.aag.sss.factories.StocksServiceFactory;
 import com.aag.sss.managers.TradesEntityManager;
@@ -88,6 +89,9 @@ public class StocksServicesTest {
 				Assert.assertTrue(dividendYield >= 0.0);
 			}
 
+		}catch(NoDataException exception){
+			logger.info(exception);
+			Assert.assertTrue(true);
 		}catch(Exception exception){
 			logger.error(exception);
 			Assert.assertTrue(false);
@@ -164,6 +168,9 @@ public class StocksServicesTest {
 				logger.info(symbol+" - P/E Ratio calculated: "+peRatio);
 				Assert.assertTrue(peRatio > 0.0);
 			}
+		}catch(NoDataException exception){
+			logger.info(exception);
+			Assert.assertTrue(true);
 		}catch(Exception exception){
 			logger.error(exception);
 			Assert.assertTrue(false);
@@ -198,6 +205,9 @@ public class StocksServicesTest {
 			}
 
 			
+		}catch(NoDataException exception){
+			logger.error(exception);
+			Assert.assertTrue(true);
 		}catch(Exception exception){
 			logger.error(exception);
 			Assert.assertTrue(false);
@@ -226,6 +236,9 @@ public class StocksServicesTest {
 			logger.info("GBCE All Share Index: "+GBCEAllShareIndex);
 			Assert.assertTrue(GBCEAllShareIndex > 0.0);
 			
+		}catch(NoDataException exception){
+			logger.error(exception);
+			Assert.assertTrue(true);
 		}catch(Exception exception){
 			logger.error(exception);
 			Assert.assertTrue(false);
