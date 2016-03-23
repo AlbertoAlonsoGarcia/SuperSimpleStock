@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
+import com.aag.sss.exceptions.NoDataException;
 import com.aag.sss.managers.StocksEntityManager;
 import com.aag.sss.managers.TradesEntityManager;
 import com.aag.sss.model.Stock;
@@ -69,9 +70,11 @@ public class StocksServiceImpl implements StocksService {
 			if(stock==null){
 				throw new Exception("The stock symbol ["+symbol+"] is not supported by the Super Simple Stock system.");
 			}
-
-			// Ticker price with value zero does not make any sense and could produce a zero division
-			if(stock.getTickerPrice() <= 0.0){
+			
+			// Ticker price with value zero does not make any sense and could produce a zero division			
+			if(stock.getTickerPrice() == 0.0)
+				throw new NoDataException("There is no data to get ticker price for the stock ["+symbol+"].");
+			else if(stock.getTickerPrice() <= 0.0){
 				throw new Exception("The ticker price for the stock ["+symbol+"] should be greater than zero (0).");
 			}
 			
@@ -79,6 +82,8 @@ public class StocksServiceImpl implements StocksService {
 
 			
 
+		}catch(NoDataException nde){
+			throw nde;
 		}catch(Exception exception){
 			throw new Exception("Error calculating Dividend Yield for the stock symbol: "+symbol+".", exception);
 		}
@@ -98,17 +103,21 @@ public class StocksServiceImpl implements StocksService {
 			if(stock==null){
 				throw new Exception("The stock symbol ["+symbol+"] is not supported by the Super Simple Stock system.");
 			}
-			logger.info("before getTickerPrice");
-			// Ticker price with value zero does not make any sense and could produce a zero division
-			if(stock.getTickerPrice() <= 0.0){
+
+			// Ticker price with value zero does not make any sense and could produce a zero division			
+			if(stock.getTickerPrice() == 0.0)
+				throw new NoDataException("There is no data to get ticker price for the stock ["+symbol+"].");
+			else if(stock.getTickerPrice() < 0.0){
 				throw new Exception("The ticker price for the stock ["+symbol+"] should be greater than zero (0).");
 			}
-			logger.info("before getPeRatio");
+
 			peRatio = stock.getPeRatio();
 			
 			logger.info("Calculated Ratio "+peRatio);
 
 
+		}catch(NoDataException nde){
+			throw new NoDataException("There is no data for calculating P/E Ratio for the stock symbol: "+symbol+".");
 		}catch(Exception exception){
 			throw new Exception("Error calculating P/E Ratio for the stock symbol: "+symbol+".", exception);
 		}
@@ -132,7 +141,7 @@ public class StocksServiceImpl implements StocksService {
 
 			// shares quantity should be greater than zero
 			if(trade.getSharesNumber()<=0){
-				throw new Exception("Shares quantity in the trade to record should be greater than cero.");
+				throw new Exception("Shares number in the trade to record should be greater than cero.");
 			}
 
 			// shares price should be greater than zero
